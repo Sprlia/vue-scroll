@@ -11,9 +11,10 @@ var webpackConfig = merge(baseWebpackConfig, {
   plugins: [
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['../dist/**/*'],
-      //root: path.resolve(__dirname, '../'),
       dangerouslyAllowCleanPatternsOutsideProject: true,
+      cleanStaleWebpackAssets: true,
       verbose: true,
+      dry: true,
     }),
     new CompressionPlugin({
       filename: "[path].gz[query]",

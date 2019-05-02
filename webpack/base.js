@@ -8,9 +8,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 //, './src/style/main.css', 'bootstrap/dist/css/bootstrap.css'
 module.exports = {
-  entry: {
-    'build': ['./example/main.js']
-  },
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'static/js/[name].[hash].js'
@@ -109,7 +106,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+  //    'vue$': 'vue/dist/vue.esm.js'
     },
     modules: [
       path.resolve('./node_modules'),

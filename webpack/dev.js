@@ -20,6 +20,9 @@ var webpackConfig = merge(baseWebpackConfig, {
     proxy: {
     }
   },
+  entry: {
+    'build': ['./example/main.js']
+  },
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
