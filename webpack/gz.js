@@ -5,12 +5,21 @@ var baseWebpackConfig = require('./base');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var webpackConfig = merge(baseWebpackConfig, {
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
+    filename: 'vueScroll.min.js'
+  },
   entry: {
     'build': ['./src/index.js']
   },
+  externals: {
+    Vue: 'Vue'
+  },
   plugins: [
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: ['../dist/**/*'],
+      cleanOnceBeforeBuildPatterns: ['../dist/*/*/*'],
       dangerouslyAllowCleanPatternsOutsideProject: true,
       cleanStaleWebpackAssets: true,
       verbose: true,

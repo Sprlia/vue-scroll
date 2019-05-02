@@ -36,16 +36,17 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          {
-            loader: ExtractTextPlugin.loader,
-            options: {
-              // you can specify a publicPath here
-              // by default it use publicPath in webpackOptions.output
-              publicPath: '../../',
-              minimize: false,
-            }
-          },
-          "css-loader"
+          // {
+          //loader: ExtractTextPlugin.loader,
+          //   options: {
+          // you can specify a publicPath here
+          // by default it use publicPath in webpackOptions.output
+          //publicPath: '../../',
+          //     minimize: false,
+          //   }
+          "style-loader",
+          // },
+          "css-loader",
         ]
       },
       {
@@ -65,34 +66,37 @@ module.exports = {
 
     ]
   },
+  externals: {
+    Vue: 'Vue'
+  },
   plugins: [
     new VueLoaderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin({
-      filename: "static/css/[name].css",
-      chunkFilename: "[id].css"
-    }),
-   /* new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'example/index.html',
-      inject: 'true',
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
-    new CopyWebpackPlugin([
-      {
-        from: 'src/static',
-        to: './',
-        ignore: ['.*']
-      }
-    ])*/
+    //new ExtractTextPlugin({
+    //  filename: "static/css/[name].css",
+    //  chunkFilename: "[id].css"
+    //}),
+    /* new HtmlWebpackPlugin({
+       filename: 'index.html',
+       template: 'example/index.html',
+       inject: 'true',
+       minify: {
+         removeComments: true,
+         collapseWhitespace: true,
+         removeAttributeQuotes: true
+         // more options:
+         // https://github.com/kangax/html-minifier#options-quick-reference
+       },
+       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+       chunksSortMode: 'dependency'
+     }),
+     new CopyWebpackPlugin([
+       {
+         from: 'src/static',
+         to: './',
+         ignore: ['.*']
+       }
+     ])*/
   ],
   optimization: {
     minimizer: [
@@ -106,7 +110,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
-  //    'vue$': 'vue/dist/vue.esm.js'
+      //    'vue$': 'vue/dist/vue.esm.js'
     },
     modules: [
       path.resolve('./node_modules'),
