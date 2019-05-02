@@ -17,6 +17,11 @@ var webpackConfig = merge(baseWebpackConfig, {
   externals: {
     Vue: 'Vue'
   },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.common.js'
+    }
+  },
   plugins: [
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['../dist/*/*/*'],
