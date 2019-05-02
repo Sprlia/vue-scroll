@@ -1,0 +1,32 @@
+
+._scroll_body {
+  overflow: auto;
+  position: relative;
+}
+._scroll_x {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+._scroll_x:hover ._scroll_x_bar {
+  display: block;
+}
+._scroll_x_bar {
+  height: 100%;
+  display: none;
+}
+._scroll_y {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+._scroll_y:hover ._scroll_y_bar {
+  display: block;
+}
+._scroll_y_bar {
+  display: none;
+  width: 100%;
+}
+
+
+/*# sourceMappingURL=build.css.map*/

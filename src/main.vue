@@ -1,92 +1,121 @@
 <template>
-  <div @wheel="test" id="testss" class="_scroll_body" ref="tttt">
-    <slot></slot>
-    <div class="_scroll_x" :style="style_scroll_x">
+  <div class="_vue_scroll">
+    <div @wheel="wheel" id="testss" class="_scroll_body" ref="tttt">
+      <slot></slot>
+    </div>
+    <div class="_scroll_x" @click="scroll_x_click" :style="style_scroll_x">
       <div class="_scroll_x_bar" :style="style_scroll_x_bar"></div>
     </div>
-    <div class="_scroll_y" :style="style_scroll_y">
+    <div class="_scroll_y" @click="scroll_y_click" :style="style_scroll_y">
       <div class="_scroll_y_bar" :style="style_scroll_y_bar"></div>
     </div>
   </div>
 </template>
 
 <script>
-import { setInterval } from "timers";
 var bValue = 0;
 export default {
+  props: {},
   data() {
-    return {};
+    return {
+      body: {
+        clientHeight: 0,
+        scrollHeight: 0,
+        scrollTop: 0,
+
+        clientWidth: 0,
+        scrollWidth: 0,
+        scrollLeft: 0
+      }
+    };
   },
   methods: {
-    test(e) {
-      /*
-      console.log(this.$slots.default[0].elm);
-      var _this = this.$slots.default[0].elm
-      var h = _this.clientHeight;
-      var h1 = _this.scrollHeight;
-      var w = _this.clientWidth;
-      var w1 = _this.scrollWidth;
-      console.log(h, h1, w, w1, _this.scrollTop)
+    init() {
+      this.body.clientHeight = this.$refs.tttt.clientHeight;
+      this.body.scrollHeight = this.$refs.tttt.scrollHeight;
+      this.body.scrollTop = this.$refs.tttt.scrollTop;
 
-              configurable: true,
-        writable: true,
-      */
-      //console.log(
-      //Object.getOwnPropertySymbols(document.getElementById("testss"))
-      //);
-      /*
-          Object.defineProperty(this.$refs.tttt, "scrollTop", {
-        enumerable: true,
+      this.body.clientWidth = this.$refs.tttt.clientWidth;
+      this.body.scrollWidth = this.$refs.tttt.scrollWidth;
+      this.body.scrollLeft = this.$refs.tttt.scrollLeft;
 
-        get: function() {
-          return bValue;
-        },
-        set(newVal) {
-          console.log(newVal);
-          bValue = newVal;
-          return bValue;
-        }
-      });*/
-      //console.log(this.$refs.tttt.scrollTop)
-      //this.$refs.tttt.scrollTop = this.$refs.tttt.scrollTop + 1000
-      //console.log(this.$scopedSlots.default())
-      //console.log(e);
+      console.log(this.body);
+    },
+    wheel(e) {
+      console.log(e);
+      this.$refs.tttt.scrollTop = this.$refs.tttt.scrollTop + e.deltaY;
+      this.$refs.tttt.scrollLeft = this.$refs.tttt.scrollLeft + e.deltaX;
+
+      this.init();
+    },
+    scroll_x_click(e) {
+      console.log(e);
+      var posY = e.offsetX;
+      var target = this.body.clientWidth;
+      this.$refs.tttt.scrollLeft =
+        (posY / target) * this.body.scrollWidth - 0.5 * this.body.clientWidth;
+      this.init();
+    },
+    scroll_y_click(e) {
+      console.log(e);
+      var posY = e.offsetY;
+      var target = this.body.clientHeight;
+      this.$refs.tttt.scrollTop =
+        (posY / target) * this.body.scrollHeight - 0.5 * this.body.clientHeight;
+      this.init();
     }
   },
   computed: {
     style_scroll_x() {
       return {
         height: "10px",
-        right: "10px"
+        right: "0px"
       };
     },
     style_scroll_x_bar() {
       let w = 0;
       let w1 = 1;
-      if (this.$refs.tttt) {
-        w = this.$refs.tttt.clientHeight;
-        w1 = this.$refs.tttt.scrollHeight;
+      if (this.body.scrollWidth) {
+        w = this.body.clientWidth;
+        w1 = this.body.scrollWidth;
       }
+
+      let left = 0;
+      if (w1) left = this.body.scrollLeft / w1;
       return {
-        width: w / w1 + "%",
-        background: "#000"
+        width: (w / w1) * 100 + "%",
+        background: "#000",
+        left: left * 100 + "%",
+        position: "absolute"
       };
     },
     style_scroll_y() {
       return {
         width: "10px",
-        bottom: "10px"
+        bottom: "0px"
       };
     },
     style_scroll_y_bar() {
+      let h = 0;
+      let h1 = 1;
+      if (this.body.scrollHeight) {
+        h = this.body.clientHeight;
+        h1 = this.body.scrollHeight;
+      }
+
+      let top = 0;
+      if (h1) top = this.body.scrollTop / h1;
       return {
+        height: (h / h1) * 100 + "%",
         background: "#000",
-        height: "100%"
+        top: top * 100 + "%",
+        position: "absolute"
       };
     }
   },
   mounted() {
     const _this = this;
+    _this.init();
 
     console.log(1);
     var MutationObserver =
@@ -94,9 +123,10 @@ export default {
       window.WebKitMutationObserver ||
       window.MozMutationObserver;
     var observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        console.log(mutation);
-      });
+      _this.init();
+      //mutations.forEach(function(mutation) {
+      //  console.log(mutation);
+      //});
     });
 
     observer.observe(this.$refs.tttt, {
@@ -106,22 +136,24 @@ export default {
       subtree: true,
       characterData: true
     });
-
-    //setInterval(() => {
-    //  _this.$refs.tttt.appendChild(document.createElement("p"));
-    //}, 1000 * 2);
   }
 };
 
 /**
+  overflow: auto;
   overflow: hidden;
  */
 </script>
 
 <style>
-._scroll_body {
-  overflow: auto;
+._vue_scroll {
+  overflow: hidden;
   position: relative;
+}
+._scroll_body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 ._scroll_x {
@@ -129,7 +161,7 @@ export default {
   bottom: 0;
   left: 0;
 }
-._scroll_x:hover ._scroll_x_bar {
+._vue_scroll:hover ._scroll_x_bar {
   display: block;
 }
 ._scroll_x_bar {
@@ -142,7 +174,7 @@ export default {
   top: 0;
   right: 0;
 }
-._scroll_y:hover ._scroll_y_bar {
+._vue_scroll:hover ._scroll_y_bar {
   display: block;
 }
 ._scroll_y_bar {

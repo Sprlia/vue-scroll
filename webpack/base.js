@@ -75,7 +75,7 @@ module.exports = {
       filename: "static/css/[name].css",
       chunkFilename: "[id].css"
     }),
-    new HtmlWebpackPlugin({
+   /* new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'example/index.html',
       inject: 'true',
@@ -89,7 +89,7 @@ module.exports = {
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     }),
-    /*new CopyWebpackPlugin([
+    new CopyWebpackPlugin([
       {
         from: 'src/static',
         to: './',

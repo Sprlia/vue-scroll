@@ -5,9 +5,12 @@ var baseWebpackConfig = require('./base');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 var webpackConfig = merge(baseWebpackConfig, {
+  entry: {
+    'build': ['./src/index.js']
+  },
   plugins: [
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: ['../dist/**/*', '!static-files*'],
+      cleanOnceBeforeBuildPatterns: ['../dist/**/*'],
       //root: path.resolve(__dirname, '../'),
       dangerouslyAllowCleanPatternsOutsideProject: true,
       verbose: true,
