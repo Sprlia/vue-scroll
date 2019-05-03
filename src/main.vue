@@ -1,8 +1,16 @@
 <template>
-  <div class="_scroll_body" @wheel="wheel" @mouseenter="mouseenter" @mouseleave="mouseleave" @touchmove="touchmove" @touchend="touchend" ref="tttt">
+  <div
+    class="_scroll_body"
+    @wheel="wheel"
+    @mouseenter="mouseenter"
+    @mouseleave="mouseleave"
+    @touchmove="touchmove"
+    @touchend="touchend"
+    ref="tttt"
+  >
     <slot></slot>
-    <scroll-x :body.sync="body" :configs="configs.bar" :event="event"></scroll-x>
-    <scroll-y :body.sync="body" :configs="configs.bar" :event="event"></scroll-y>
+    <scroll-x :body.sync="body" :configs="configs" :event="event"></scroll-x>
+    <scroll-y :body.sync="body" :configs="configs" :event="event"></scroll-y>
   </div>
 </template>
 
@@ -23,14 +31,12 @@ export default {
   data() {
     return {
       default_config: {
-        bar: {
-          width: 6,
-          color: "#000",
-          //color: "#9093994d",
-          alwaysShow: false,
-          alwaysHide: false,
-          background: ""
-        }
+        width: 6,
+        //color: "#000",
+        color: "#9093994d",
+        alwaysShow: false,
+        alwaysHide: false,
+        background: ""
       },
       event: {
         hover: false,
@@ -102,7 +108,16 @@ export default {
   },
   computed: {
     configs() {
-      return Object.assign({}, this.config, this.default_config);
+      console.log(this.default_config, this.$SPSCROLLER, this.config);
+      console.log(
+        Object.assign({}, this.default_config, this.$SPSCROLLER, this.config)
+      );
+      return Object.assign(
+        {},
+        this.default_config,
+        this.$SPSCROLLER,
+        this.config
+      );
     }
   },
   watch: {

@@ -80,7 +80,7 @@ export default {
       return {
         left: left + "px",
         top: top + "px",
-        height: "6px",
+        height: this.configs.width + "px",
         width: this.body.clientWidth + "px",
         background: this.configs.background ? this.configs.background : "none",
         position: "absolute"

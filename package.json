@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Sprlia/vue-scroll#readme",
   "dependencies": {
+    "element-ui": "^2.8.2",
     "vue": "^2.6.10"
   },
   "main": "dist/vueScroll.min.js",
