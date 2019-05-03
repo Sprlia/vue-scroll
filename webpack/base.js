@@ -1,17 +1,11 @@
 var path = require('path')
-var webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-var ExtractTextPlugin = require('mini-css-extract-plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+//var ExtractTextPlugin = require('mini-css-extract-plugin')
 //var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 //, './src/style/main.css', 'bootstrap/dist/css/bootstrap.css'
 module.exports = {
-  output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: 'static/js/[name].[hash].js'
-  },
   module: {
     rules: [
       {
@@ -71,7 +65,6 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     //new ExtractTextPlugin({
     //  filename: "static/css/[name].css",
     //  chunkFilename: "[id].css"

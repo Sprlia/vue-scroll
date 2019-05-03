@@ -25,6 +25,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   },
   devtool: 'inline-source-map',
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'example/index.html',
