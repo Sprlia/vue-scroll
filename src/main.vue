@@ -1,13 +1,5 @@
 <template>
-  <div
-    class="_scroll_body"
-    @wheel="wheel"
-    @mouseenter="mouseenter"
-    @mouseleave="mouseleave"
-    @touchmove="touchmove"
-    @touchend="touchend"
-    ref="tttt"
-  >
+  <div class="_scroll_body" @wheel="wheel" @mouseenter="mouseenter" @mouseleave="mouseleave" @touchmove="touchmove" @touchend="touchend" ref="tttt">
     <slot></slot>
     <scroll-x :body.sync="body" :configs="configs" :event="event"></scroll-x>
     <scroll-y :body.sync="body" :configs="configs" :event="event"></scroll-y>
@@ -32,10 +24,12 @@ export default {
     return {
       default_config: {
         width: 6,
-        //color: "#000",
-        color: "#9093994d",
+        color: "#000",
+        //color: "#9093994d",
         alwaysShow: false,
         alwaysHide: false,
+        event_up: 0,
+        event_down: 100,
         background: ""
       },
       event: {
@@ -121,15 +115,29 @@ export default {
     }
   },
   watch: {
-    "body.scrollTop": {
+    body: {
       handler(n, o) {
-        this.$refs.tttt.scrollTop = n;
-      },
-      deep: true
-    },
-    "body.scrollLeft": {
-      handler(n, o) {
-        this.$refs.tttt.scrollLeft = n;
+        this.$refs.tttt.scrollTop = n.scrollTop;
+        this.$refs.tttt.scrollLeft = n.scrollLeft;
+
+        if (
+          // this.body.scrollHeight >=
+          //   this.body.scrollTop + this.body.clientHeight &&
+          this.body.scrollHeight -
+            this.body.scrollTop -
+            this.body.clientHeight <=
+          this.configs.event_down
+        ) {
+          console.log("event_down");
+          this.$emit("event_down", n);
+        }
+
+        if (
+          //n.scrollTop >= 0 &&
+          this.body.scrollTop <= this.configs.event_up
+        ) {
+          this.$emit("event_up", n);
+        }
       },
       deep: true
     }
@@ -144,6 +152,7 @@ export default {
       window.WebKitMutationObserver ||
       window.MozMutationObserver;
     var observer = new MutationObserver(function(mutations) {
+      console.log("MutationObserver refresh");
       _this.refresh();
       //mutations.forEach(function(mutation) {
       //});

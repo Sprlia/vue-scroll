@@ -1,6 +1,6 @@
 {
   "name": "vue-scroller-sp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "scroll component for vue",
   "scripts": {
     "base": "webpack --config webpack/base.js --progress --mode development",
