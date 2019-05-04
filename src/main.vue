@@ -24,8 +24,8 @@ export default {
     return {
       default_config: {
         width: 6,
-        color: "#000",
-        //color: "#9093994d",
+        //color: "#000",
+        color: "#9093994d",
         alwaysShow: false,
         alwaysHide: false,
         event_up: 0,
