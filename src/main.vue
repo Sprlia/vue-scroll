@@ -96,16 +96,11 @@ export default {
       }
     },
     touchend(e) {
-      console.log("touch end");
       this.eventTmp.touch = null;
     }
   },
   computed: {
     configs() {
-      console.log(this.default_config, this.$SPSCROLLER, this.config);
-      console.log(
-        Object.assign({}, this.default_config, this.$SPSCROLLER, this.config)
-      );
       return Object.assign(
         {},
         this.default_config,
@@ -128,7 +123,6 @@ export default {
             this.body.clientHeight <=
           this.configs.event_down
         ) {
-          console.log("event_down");
           this.$emit("event_down", n);
         }
 
@@ -152,7 +146,6 @@ export default {
       window.WebKitMutationObserver ||
       window.MozMutationObserver;
     var observer = new MutationObserver(function(mutations) {
-      console.log("MutationObserver refresh");
       _this.refresh();
       //mutations.forEach(function(mutation) {
       //});
